@@ -1,0 +1,91 @@
+server:
+  port: 80
+  context-path: /
+logging:
+  level:
+    com.dly.pay.dao.TUserMapper: debug
+    
+
+spring:
+    redis:
+        host: 39.106.129.135
+        port: 6379
+        database: 0
+        password: 200814
+        timeout: 30000
+        pool:
+          max-active: 100
+          max-wait: 2000
+          max-idle: 50
+          min-idle: 0
+        
+        
+    http:
+      multipart:
+        enabled: true
+        max-file-size: 1024Mb 
+        max-request-size: 1024Mb 
+    datasource:
+        url: jdbc:mysql://localhost:3306/pay?characterEncoding=utf-8&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        username: lizhongshi
+        password: LiZhongShi0917!
+        type: com.alibaba.druid.pool.DruidDataSource 
+        driver-class-name: com.mysql.jdbc.Driver   
+        platform: mysql
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+ 
+  
+    
+  
+
+jpa:
+     hibernate.ddl-auto: update
+     show-sql: true
+     thymeleaf:
+      cache: false
+mybatis: 
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: countSql
+ 
+#极光推送   
+jpush:
+  config:
+    appkey: c241f4c4694b35c7fc40bd7f
+    masterSecret: 8e8afdd7a30f221bf681faea
+#短信
+sms:
+  product: Dysmsapi
+  domain: dysmsapi.aliyuncs.com
+  accessKeyId: LTAIDX5dKBBc0sxM
+  accessKeySecret: QU17d47YzickKIxZcKOtepf1S0gjai
+  templateCode: SMS_115930121
+  signName: 旅游日记
+#密钥
+sign:
+  signKey: 4A554CD6150148139C7F4049AF3637AD
+  dataKey: 51EF24352A2B44AEB9AC257FE0DB5265
+#异步通知
+notify:
+  Htmlurl: http://198tj48540.iask.in:37379/payNotify.html
+  notifyUrl: http://198tj48540.iask.in:37379/payNotify/order
+
+
+      

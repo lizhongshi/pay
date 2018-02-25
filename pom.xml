@@ -131,6 +131,10 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
@@ -178,7 +182,14 @@
 		    <groupId>com.alibaba</groupId>
 		    <artifactId>fastjson</artifactId>
 		    <version>1.1.36</version>
-		  	</dependency>	
+		 </dependency>	
+		 
+		 <dependency>
+		    <groupId>com.aliyun.api.gateway</groupId>
+		    <artifactId>java.demo</artifactId>
+		    <version>1.0-SNAPSHOT</version>
+		  	</dependency>	 	
+		  
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

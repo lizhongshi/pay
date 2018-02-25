@@ -29,4 +29,6 @@ public class BankCardController {
 		return bankCardService.checkCardIsBindChannel(input);
 	}
 	
+		
+	
 }

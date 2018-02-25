@@ -14,7 +14,7 @@ public class JedisDateSource {
     private JedisPool jedisPool;
 	
 	public Jedis getJedis() {
-		synchronized(this) {
+	
 		Jedis jedis=null;
 		try {
 				 jedis=	jedisPool.getResource();
@@ -23,7 +23,7 @@ public class JedisDateSource {
 			jedis.close();
 		}
 		return jedis;
-		}
+		
 	}
 	public void colse(Jedis jddis) {
 		if(jddis!=null) {

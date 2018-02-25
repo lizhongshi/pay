@@ -70,7 +70,7 @@ jpush:
   config:
     appkey: c241f4c4694b35c7fc40bd7f
     masterSecret: 8e8afdd7a30f221bf681faea
-#短信
+#阿里云短信
 sms:
   product: Dysmsapi
   domain: dysmsapi.aliyuncs.com
@@ -78,7 +78,7 @@ sms:
   accessKeySecret: QU17d47YzickKIxZcKOtepf1S0gjai
   templateCode: SMS_115930121
   signName: 旅游日记
-#密钥
+#通道密钥
 sign:
   signKey: 4A554CD6150148139C7F4049AF3637AD
   dataKey: 51EF24352A2B44AEB9AC257FE0DB5265
@@ -87,5 +87,9 @@ notify:
   Htmlurl: http://198tj48540.iask.in:37379/payNotify.html
   notifyUrl: http://198tj48540.iask.in:37379/payNotify/order
 
-
+#银行卡4要素
+bank:
+  host: https://yunyidata.market.alicloudapi.com
+  path: /bankAuthenticate4
+  appcode: c31ed83201354352adbb2409fb704da6
       

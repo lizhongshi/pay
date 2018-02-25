@@ -41,7 +41,7 @@ public class BankCardServiceImpl implements BankCardService {
 		TUserBankcardExample tUserBankExample = new TUserBankcardExample(); 
 		tUserBankExample.createCriteria()
 		.andUserIdEqualTo(input.getUserId())
-		.andCardTypeEqualTo("1")
+		.andCardTypeEqualTo("借记卡")
 		.andChannelEqualTo(input.getChannel());
 		 List<TUserBankcard> result = tUserBankcardMapper.selectByExample(tUserBankExample);
 		 JSONObject json =new JSONObject();

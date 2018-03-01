@@ -55,7 +55,8 @@ public class PayNotifyServiceImpl1 implements PayNotifyService {
 					}
 					case "2":{      //结算成功
 						TOrder tOrder1 = new TOrder();
-						tOrder1.setOrderId(json.getString("orderNo"));
+						String orderId= json.getString("orderNo");
+						tOrder1.setOrderId(orderId);
 						tOrder1.setIsdz(true);
 						tOrder1.setDzTime(new Date());
 						tOrder1.setDzStatus("2");
@@ -63,7 +64,7 @@ public class PayNotifyServiceImpl1 implements PayNotifyService {
 						if(i2>0) {
 							TOrder order = tOrderMapper.selectByPrimaryKey(json.getString("orderNo"));
 							try {
-								fenRunService.fenRun(order.getUserId(), "1", Double.valueOf(order.getJyje()));
+								fenRunService.fenRun(order.getUserId(), "1", Double.valueOf(order.getJyje()),orderId);
 							} catch (Exception e) {
 								// TODO: handle exception
 							}

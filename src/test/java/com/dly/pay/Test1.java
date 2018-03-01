@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -95,10 +96,10 @@ public class Test1 {
 		    Map<String, String> querys = new HashMap<String, String>();
 		    Map<String, String> bodys = new HashMap<String, String>();
 		    bodys.put("ReturnBankInfo", "YES");
-		    bodys.put("cardNo", "6212260402022754608");
-		    bodys.put("idNo", "130130199504101213");
-		    bodys.put("name", "李中石");
-		    bodys.put("phoneNo", "15932218252");
+		    bodys.put("cardNo", "6212260402019998481");
+		    bodys.put("idNo", "130184199510041519");
+		    bodys.put("name", "默朋帅");
+		    bodys.put("phoneNo", "17333928365");
 
 
 		    try {
@@ -114,7 +115,7 @@ public class Test1 {
 		    	HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
 		    	System.out.println(response.toString());
 		    	//获取response的body
-		    	//System.out.println(EntityUtils.toString(response.getEntity()));
+		    	System.out.println(EntityUtils.toString(response.getEntity()));
 		    } catch (Exception e) {
 		    	e.printStackTrace();
 		    }

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 public class TransactionManagementConfig  {
  
-    @Bean
+    @Bean(name="transactionManager")
     public PlatformTransactionManager mysqlTransactionManager(@Qualifier("dataSource") DataSource myqlDataSource)
     {
         return new DataSourceTransactionManager(myqlDataSource);

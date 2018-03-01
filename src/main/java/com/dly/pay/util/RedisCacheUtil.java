@@ -2,18 +2,17 @@ package com.dly.pay.util;
 
 
 
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.dly.pay.base.RedisKey;
 import com.dly.pay.redis.JedisDateSource;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.ShardedJedis;
 
 
 @Component
@@ -49,6 +48,24 @@ public class RedisCacheUtil {
         }
         return false;
     }
+   /**
+    * 判断key是否存在
+    * @param key
+    * @return
+    */
+   public  boolean exists(String key) {
+	   Jedis jedis = null;
+       try {
+       	 jedis=redisDataSource.getJedis();
+       	return 	jedis.exists(key);
+       } catch (Throwable t) {
+           t.printStackTrace();
+           throw t;
+       }finally{
+       	jedis.close();
+       }
+       
+   }
     
     /**
      * 根据key获取缓存
@@ -129,11 +146,11 @@ public class RedisCacheUtil {
      * @param key
      * @return
      */
-    public void upKey(String key) {
+    public void upKey(String key,int time) {
     	Jedis jedis = null;
         try {
         	 jedis=redisDataSource.getJedis();
-    		jedis.expire(key, 500000);
+    		jedis.expire(key, time);
     	}catch(Exception e) {
     		 logger.error(e.getMessage());
     		 e.printStackTrace();
@@ -188,6 +205,67 @@ public class RedisCacheUtil {
     	}catch(Exception e) {
     		 logger.error(e.getMessage());
     		 e.printStackTrace();
+    		 throw e;
+    	}finally{
+        	jedis.close();
+        }
+    }
+    /**
+     * 给有序集合中的元素值进行加减
+     * @param set集合
+     * @param score 值
+     * @param member key
+     */
+    public  void  zincrby(String key,double score,String member ) {
+    	Jedis jedis = null;
+        try {
+        	 jedis=redisDataSource.getJedis();
+    		jedis.zincrby(key, score, member);
+    	}catch(Exception e) {
+    		 logger.error(e.getMessage());
+    		 e.printStackTrace();
+    		 throw e;
+    	}finally{
+        	jedis.close();
+        }
+    }
+    /**
+     * 
+     * @param key 
+     * @param member
+     * @return 指定集合中key的索引
+     */
+    public  long zrank(String key,String member) {
+    	Jedis jedis = null;
+        try {
+        	System.out.println("key:"+key);
+        	System.out.println("member:"+member);
+        	 jedis=redisDataSource.getJedis();
+        	 Long zrank = jedis.zrank(key, member);
+        	System.out.println(zrank);
+    		return zrank;
+    	}catch(Exception e) {
+    		 logger.error(e.getMessage());
+    		 e.printStackTrace();
+    		 throw e;
+    	}finally{
+        	jedis.close();
+        } 
+    }
+    
+    
+    
+    
+    public  Set<String>  getSortedSet(String key) {
+    	Jedis jedis = null;
+        try {
+        	 jedis=redisDataSource.getJedis();
+    		 Set<String> zrange = jedis.zrange(key, 0, -1);
+    		 return zrange;
+    	}catch(Exception e) {
+    		 logger.error(e.getMessage());
+    		 e.printStackTrace();
+    		 return null;
     	}finally{
         	jedis.close();
         }

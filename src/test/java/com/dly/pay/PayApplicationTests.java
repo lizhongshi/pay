@@ -1,7 +1,5 @@
 package com.dly.pay;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -9,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.dly.pay.rabbitMQ.Sender;
 import com.dly.pay.service.FenRunService;
 
 @RunWith(SpringRunner.class)
@@ -16,7 +15,8 @@ import com.dly.pay.service.FenRunService;
 public class PayApplicationTests {
 	@Resource
 	FenRunService fenRunService;
-
+	@Resource
+	Sender sender;
 	@Test
 	public void contextLoads() {
 //		 Calendar cal = Calendar.getInstance();
@@ -30,12 +30,20 @@ public class PayApplicationTests {
 		//ThreadPoolExecutor pool=new ThreadPoolExecutor(10, 10, 0, null, null);
 		
 		try {
-			fenRunService.fenRun("00000001", "1",new Double(16666));
+			fenRunService.fenRun("00000005", "1",new Double(16666),"2018020600059");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		 
+	}
+	@Test
+	public  void s1() throws InterruptedException {
+		for (int i = 0; i < 150; i++) {
+			System.out.println(i);
+			sender.send("sss"+i);
+		}
+		Thread.sleep(10000);
 	}
 
 }

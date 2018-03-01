@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dly.pay.dao.TFenrunMxMapper">
+  <resultMap id="BaseResultMap" type="com.dly.pay.entity.TFenrunMx">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fsje" jdbcType="DOUBLE" property="fsje" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="referee" jdbcType="VARCHAR" property="referee" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="jyje" jdbcType="DOUBLE" property="jyje" />
+    <result column="ywlsh" jdbcType="VARCHAR" property="ywlsh" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, fsje, user_id, referee, time, jyje, ywlsh
+  </sql>
+  <select id="selectByExample" parameterType="com.dly.pay.entity.TFenrunMxExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_fenrun_mx
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_fenrun_mx
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_fenrun_mx
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dly.pay.entity.TFenrunMxExample">
+    delete from t_fenrun_mx
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dly.pay.entity.TFenrunMx">
+    insert into t_fenrun_mx (id, fsje, user_id, 
+      referee,  jyje, 
+      ywlsh)
+    values (#{id,jdbcType=INTEGER}, #{fsje,jdbcType=DOUBLE}, #{userId,jdbcType=VARCHAR}, 
+      #{referee,jdbcType=VARCHAR}, #{jyje,jdbcType=DOUBLE}, 
+      #{ywlsh,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dly.pay.entity.TFenrunMx">
+    insert into t_fenrun_mx
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fsje != null">
+        fsje,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="referee != null">
+        referee,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="jyje != null">
+        jyje,
+      </if>
+      <if test="ywlsh != null">
+        ywlsh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fsje != null">
+        #{fsje,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="referee != null">
+        #{referee,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jyje != null">
+        #{jyje,jdbcType=DOUBLE},
+      </if>
+      <if test="ywlsh != null">
+        #{ywlsh,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dly.pay.entity.TFenrunMxExample" resultType="java.lang.Long">
+    select count(*) from t_fenrun_mx
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_fenrun_mx
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fsje != null">
+        fsje = #{record.fsje,jdbcType=DOUBLE},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referee != null">
+        referee = #{record.referee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.jyje != null">
+        jyje = #{record.jyje,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ywlsh != null">
+        ywlsh = #{record.ywlsh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_fenrun_mx
+    set id = #{record.id,jdbcType=INTEGER},
+      fsje = #{record.fsje,jdbcType=DOUBLE},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      referee = #{record.referee,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      jyje = #{record.jyje,jdbcType=DOUBLE},
+      ywlsh = #{record.ywlsh,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dly.pay.entity.TFenrunMx">
+    update t_fenrun_mx
+    <set>
+      <if test="fsje != null">
+        fsje = #{fsje,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="referee != null">
+        referee = #{referee,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jyje != null">
+        jyje = #{jyje,jdbcType=DOUBLE},
+      </if>
+      <if test="ywlsh != null">
+        ywlsh = #{ywlsh,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dly.pay.entity.TFenrunMx">
+    update t_fenrun_mx
+    set fsje = #{fsje,jdbcType=DOUBLE},
+      user_id = #{userId,jdbcType=VARCHAR},
+      referee = #{referee,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      jyje = #{jyje,jdbcType=DOUBLE},
+      ywlsh = #{ywlsh,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

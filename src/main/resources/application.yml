@@ -7,8 +7,6 @@ logging:
     com.dly.pay.dao.TFenrunMxMapper: debug
 
 spring:
-    jackson:
-        time-zone: GMT+8
     rabbitmq:
         addresses: 127.0.0.1
         host: 5672
@@ -103,4 +101,8 @@ bank:
   host: https://yunyidata.market.alicloudapi.com
   path: /bankAuthenticate4
   appcode: c31ed83201354352adbb2409fb704da6
+level:
+  kafen: 2
+  kabei: 6
+  
       

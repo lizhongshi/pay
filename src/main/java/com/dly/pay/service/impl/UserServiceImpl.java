@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,13 +35,14 @@ import com.dly.pay.vo.UserInfoInput;
 @Service("userService")
 @Transactional
 public class UserServiceImpl  implements UserService {
-public  class a{
-	
-	}
+	@Value(value = "${level.kafen}")
+	private Integer kafen;
+	@Value(value = "${level.kabei}")
+	private Integer kabei;
 	private static Logger log = Logger.getLogger(UserServiceImpl.class);
+	
 	@Resource
 	TUserMapper tUserMapper;
-	
 	@Resource(name="userIDGenerrated")
 	IDGeneratedService userIDGenerrated;
 	
@@ -97,7 +99,7 @@ public  class a{
 			//<----
 			List<TUser> result2= tUserMapper.selectByExample(TUserExample2);
 			if(result2.size()>0) {//进行注册
-				TUser Referee =result2.get(0);//获取推荐人
+				TUser referee =result2.get(0);//获取推荐人
 				TUser inUser=new TUser();
 				String salt=Util.getUUID();
 				inUser.setPassword(Util.Md5(user.getPassword(), salt));
@@ -105,8 +107,17 @@ public  class a{
 				inUser.setPhone(user.getPhone());
 				inUser.setProject(user.getProject());//项目id
 				inUser.setUserId(userIDGenerrated.increase());
-				inUser.setReferee(Referee.getUserId());//推荐人
+				inUser.setReferee(referee.getUserId());//推荐人
+				inUser.setLevel(5);
 				if(tUserMapper.insert(inUser)>0) {
+					if(result2.size()+1>kafen) {
+						referee.setLevel(2);
+					}else if(result2.size()+1>kabei) {
+						referee.setLevel(3);
+					}
+					TUserExample TUserExample3 =new TUserExample();
+					TUserExample3.createCriteria().andUserIdEqualTo(referee.getUserId());
+					tUserMapper.updateByExampleSelective(referee, TUserExample3);
 					 return new Result(true,RegisterMessage.SUCCESS.getMessage());
 					 
 				}else {
@@ -235,11 +246,14 @@ public  class a{
 		}
 		return new Result(false,"",new JSONArray() );
 	}
-
 	@Override
-	public JSONObject digui(UserInfoInput user) {
-		
-		return null;
+	public Object uploadUserIcon(TUser input) {
+		int updateByExampleSelective = tUserMapper.updateByPrimaryKeySelective(input);
+		if(updateByExampleSelective>0) {
+			return new Result(true,"上传成功");
+		}else {
+			return new Result(false,"上传失败");
+		}
 	}
 	
 }

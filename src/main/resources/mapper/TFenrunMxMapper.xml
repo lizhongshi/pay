@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dly.pay.dao.TFenrunMxMapper">
+<select id="getuserTodayFenrunSum" parameterType="com.dly.pay.vo.PersonFenRunMxInput" resultType="com.dly.pay.vo.PersonFenRunMxOutput">
+	SELECT  SUM(fsje) fenrunzj FROM t_fenrun_mx WHERE ( user_id=${userId} AND TIME BETWEEN  DATE_FORMAT(NOW(),'%Y-%m-%d 00:00:00') AND DATE_FORMAT(NOW(),'%Y-%m-%d 23:59:59') ) 
+</select>
+<select id="getuserYesterdayFenrunSum" parameterType="com.dly.pay.vo.PersonFenRunMxInput" resultType="com.dly.pay.vo.PersonFenRunMxOutput">
+	SELECT  SUM(fsje) fenrunzj FROM t_fenrun_mx WHERE ( user_id=${userId} AND TIME BETWEEN  DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d 00:00:00') AND DATE_FORMAT(DATE_SUB(NOW(),INTERVAL 1 DAY),'%Y-%m-%d 23:59:59') )
+</select>
+
+<select id="getTodayFenrunTopList"  resultType="com.dly.pay.vo.UserInfo">
+	SELECT a.fsje frzj,b.icon_url,b.`level` ,b.`phone` 
+	FROM (SELECT  * FROM t_fenrun_mx WHERE (TIME BETWEEN  DATE_FORMAT(NOW(),'%Y-%m-%d 00:00:00') AND NOW() ) GROUP BY user_id ORDER BY fsje DESC LIMIT 0,10)  a JOIN t_user b ON a.user_id=b.user_id 
+</select>
+
+<select id="getTomonthFenrunTopList"  resultType="com.dly.pay.vo.UserInfo">
+	SELECT a.fsje frzj,b.icon_url,b.`level` ,b.`phone` 
+	FROM (SELECT  * FROM t_fenrun_mx WHERE (TIME BETWEEN  DATE_FORMAT(NOW(),'%Y-%m-01 00:00:00') AND NOW() ) GROUP BY user_id ORDER BY fsje DESC LIMIT 0,10)  a JOIN t_user b ON a.user_id=b.user_id 
+</select>
+
+
   <resultMap id="BaseResultMap" type="com.dly.pay.entity.TFenrunMx">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="fsje" jdbcType="DOUBLE" property="fsje" />

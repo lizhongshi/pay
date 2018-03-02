@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dly.pay.base.Result;
+import com.dly.pay.entity.TUser;
 import com.dly.pay.service.UserService;
 import com.dly.pay.vo.ChangeUserInfoInput;
 import com.dly.pay.vo.LoginInput;
@@ -97,5 +98,11 @@ public class UserController {
 	public Object  resetPassword(@RequestBody ChangeUserInfoInput input){
 		return userService.resetPassword(input);
 	}
+	@PostMapping(value="uploadUserIcon",produces = "application/json;charset=UTF-8")
+	public Object  uploadUserIcon(@RequestBody TUser input){
+		return userService.uploadUserIcon(input);
+	}
+	
+	
 
 }

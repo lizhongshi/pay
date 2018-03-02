@@ -186,13 +186,16 @@ public class RealNameAuthenticationServiceImpl implements RealNameAuthentication
 		TUserBankcardExample tUserBankcardExample = new TUserBankcardExample();
 		tUserBankcardExample.createCriteria().andUserIdEqualTo(input.getUserId());
 		List<TUserBankcard> selectByExample2 = tUserBankcardMapper.selectByExample(tUserBankcardExample);
-		UserRealNameInfoOutput output=new UserRealNameInfoOutput();
-		output.setBankName(selectByExample2.get(0).getBankName());
-		output.setCardNo(selectByExample2.get(0).getCardNo());
-		output.setUserName(selectByExample.get(0).getUserName());
-		output.setIdCard(selectByExample.get(0).getIdCard());
-		output.setStatus(selectByExample.get(0).getStatus());
-		return new Result(true,"成功",output);
+		if(selectByExample.size()>0&&selectByExample2.size()>0) {
+			UserRealNameInfoOutput output=new UserRealNameInfoOutput();
+			output.setBankName(selectByExample2.get(0).getBankName());
+			output.setCardNo(selectByExample2.get(0).getCardNo());
+			output.setUserName(selectByExample.get(0).getUserName());
+			output.setIdCard(selectByExample.get(0).getIdCard());
+			output.setStatus(selectByExample.get(0).getStatus());
+			return new Result(true,"成功",output);
+		}else {
+			return new Result(false,"未认证");
+		}
 	}
-
 }

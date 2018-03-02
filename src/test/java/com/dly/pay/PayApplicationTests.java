@@ -30,7 +30,7 @@ public class PayApplicationTests {
 		//ThreadPoolExecutor pool=new ThreadPoolExecutor(10, 10, 0, null, null);
 		
 		try {
-			fenRunService.fenRun("00000005", "1",new Double(16666),"2018020600059");
+			fenRunService.fenRun("00000008", "1",new Double(16666),"2018020600059");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

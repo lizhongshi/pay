@@ -32,6 +32,7 @@ import com.dly.pay.util.CalendarUtil;
 import com.dly.pay.util.RedisCacheUtil;
 import com.dly.pay.vo.FenRunTopOutput;
 import com.dly.pay.vo.PersonFenRunMxInput;
+import com.dly.pay.vo.PersonFenRunMxOutput;
 import com.dly.pay.vo.UserInfo;
 import com.github.pagehelper.PageHelper;
 @Service("userFenRunService")
@@ -106,50 +107,37 @@ public class UserFenRunServiceImpl implements FenRunService{
 	}
 	@Override
 	public Result getFenRunTopList(UserInfo input) {
-		 PageHelper.startPage(0, 10);
-		TUserExample tUserExample=new TUserExample();
-		tUserExample.setOrderByClause("fyzj desc");
-		tUserExample.createCriteria();
-		List<TUser> selectByExample = tUserMapper.selectByExample(tUserExample);
-		List<FenRunTopOutput> result= new ArrayList<>();
-		for (TUser tUser : selectByExample) {
-			FenRunTopOutput output=new FenRunTopOutput();
-			output.setFrzj(String.valueOf(tUser.getFyzj()));
-			output.setIcon(tUser.getIconUrl());
-			output.setPhone(tUser.getPhone());
-			output.setLevel(String.valueOf(tUser.getLevel()));
-			result.add(output);
-		}
+		UserInfo todayFenrunTopList = tFenrunMxMapper.getTodayFenrunTopList();
+		UserInfo tomonthFenrunTopList = tFenrunMxMapper.getTomonthFenrunTopList();
+		JSONObject result=new JSONObject();
+		result.put("today", todayFenrunTopList);
+		result.put("tomonth", tomonthFenrunTopList);
 		return new Result(true,"",result);
 	}
 	@Override
 	public Result getPersonFenRunRanking(UserInfo input) {
+		System.out.println(input);
 		JSONObject result=new JSONObject();
 		try {
-			long today = redisCacheUtil.zrank(RedisKey.PERSON_TODAY_RANKING.getKey()+CalendarUtil.getNowTime(CalendarUtil.yyyy_MM_ddFormat), input.getUserId());//获取
-			long tomonth= redisCacheUtil.zrank(RedisKey.PERSON_TOMONTH_RANKING.getKey()+CalendarUtil.getNowTime(CalendarUtil.yyyy_MMFormat), input.getUserId());//获取
+			Long today = redisCacheUtil.zrank(RedisKey.PERSON_TODAY_RANKING.getKey()+CalendarUtil.getNowTime(CalendarUtil.yyyy_MM_ddFormat), input.getUserId());//获取
+			Long tomonth= redisCacheUtil.zrank(RedisKey.PERSON_TOMONTH_RANKING.getKey()+CalendarUtil.getNowTime(CalendarUtil.yyyy_MMFormat), input.getUserId());//获取
 			result.put("today", today);
 			result.put("tomonth", tomonth);
 			return new Result(true,"",result);
 		}catch(Exception e) {
 			log.error(e.getMessage());
+			e.printStackTrace();
 			return new Result(false,e.getMessage());
 		}
 	}
 	@Override
 	public Result getPersonFenRunMx(PersonFenRunMxInput input) {
-		System.out.println(input);
 		TFenrunMxExample tFenrunMxExample = new TFenrunMxExample(); 
 		Date start=new Date();
 		start.setTime(Long.valueOf(input.getStart()));
 		Date end=new Date();
 		end.setTime(Long.valueOf(input.getEnd()));
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		
-		
-		System.out.println(start);
-		System.out.println(end);
-		
 //		String s1=sdf.format(start);
 //		String e=sdf.format(end);
 //		try {
@@ -170,6 +158,24 @@ public class UserFenRunServiceImpl implements FenRunService{
 		tFenrunMxExample.createCriteria().andUserIdEqualTo(input.getUserId()).andTimeBetween(start, end);
 		List<TFenrunMx> selectByExample = tFenrunMxMapper.selectByExample(tFenrunMxExample);
 		return new Result(true,"",selectByExample);
+	}
+	@Override
+	public Result getPersonTodayFenRun(PersonFenRunMxInput input) {
+		PersonFenRunMxOutput getuserFenrunSum = tFenrunMxMapper.getuserTodayFenrunSum(input);
+		if(getuserFenrunSum==null) {
+			getuserFenrunSum =new PersonFenRunMxOutput();
+			getuserFenrunSum.setFenrunzj(0);
+		}
+		return new Result(true,"",getuserFenrunSum);
+	}
+	@Override
+	public Result getPersonYesterdayFenRun(PersonFenRunMxInput input) {
+		PersonFenRunMxOutput getuserFenrunSum = tFenrunMxMapper.getuserYesterdayFenrunSum(input);
+		if(getuserFenrunSum==null) {
+			getuserFenrunSum =new PersonFenRunMxOutput();
+			getuserFenrunSum.setFenrunzj(0);
+		}
+		return new Result(true,"",getuserFenrunSum);
 	}
 	
 }

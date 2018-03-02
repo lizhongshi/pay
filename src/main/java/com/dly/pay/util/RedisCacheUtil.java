@@ -235,7 +235,7 @@ public class RedisCacheUtil {
      * @param member
      * @return 指定集合中key的索引
      */
-    public  long zrank(String key,String member) {
+    public  Long zrank(String key,String member) {
     	Jedis jedis = null;
         try {
         	System.out.println("key:"+key);

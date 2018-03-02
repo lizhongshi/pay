@@ -14,4 +14,6 @@ public interface FenRunService {
 		public Result getFenRunTopList(UserInfo input);
 		public Result getPersonFenRunRanking(UserInfo input);
 		public Result getPersonFenRunMx(PersonFenRunMxInput input) ;
+		public Result getPersonTodayFenRun( PersonFenRunMxInput input);
+		public Result getPersonYesterdayFenRun( PersonFenRunMxInput input); 
 }

@@ -2,6 +2,10 @@ package com.dly.pay.dao;
 
 import com.dly.pay.entity.TFenrunMx;
 import com.dly.pay.entity.TFenrunMxExample;
+import com.dly.pay.vo.PersonFenRunMxInput;
+import com.dly.pay.vo.PersonFenRunMxOutput;
+import com.dly.pay.vo.UserInfo;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +31,8 @@ public interface TFenrunMxMapper {
     int updateByPrimaryKeySelective(TFenrunMx record);
 
     int updateByPrimaryKey(TFenrunMx record);
+    PersonFenRunMxOutput getuserTodayFenrunSum(PersonFenRunMxInput input);
+    PersonFenRunMxOutput getuserYesterdayFenrunSum(PersonFenRunMxInput input);
+    UserInfo getTodayFenrunTopList ();
+    UserInfo getTomonthFenrunTopList ();
 }

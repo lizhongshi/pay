@@ -13,8 +13,6 @@ public class TUser {
 
     private String password;
 
-    private String iconUrl;
-
     private Date creationTime;
 
     private String sex;
@@ -34,6 +32,8 @@ public class TUser {
     private Double zhye;
 
     private Double fyzj;
+
+    private String iconUrl;
 
     public String getUserId() {
         return userId;
@@ -73,14 +73,6 @@ public class TUser {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl == null ? null : iconUrl.trim();
     }
 
     public Date getCreationTime() {
@@ -161,5 +153,13 @@ public class TUser {
 
     public void setFyzj(Double fyzj) {
         this.fyzj = fyzj;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl == null ? null : iconUrl.trim();
     }
 }

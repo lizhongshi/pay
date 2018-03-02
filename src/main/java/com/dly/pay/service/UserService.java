@@ -1,5 +1,7 @@
 package com.dly.pay.service;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dly.pay.base.Result;
@@ -64,7 +66,7 @@ public interface UserService  {
 	 */
 	public Result getUserSubordinate(UserInfoInput user,JSONArray result);
 	
-	public JSONObject digui(UserInfoInput user);
+	public Object  uploadUserIcon(TUser input);
 	
 
 }

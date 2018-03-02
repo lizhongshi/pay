@@ -44,12 +44,13 @@ PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   
         <!-- table是用户指定的被生成相关信息的表，它必须在指定的jdbc连接中已经被建立。?是否可以多个 -->  
   
-        <table tableName="t_fenrun_mx" >
+       <!--  <table tableName="t_fenrun_mx" >
         	<columnOverride column="shouchi1" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>
         	<columnOverride column="shouchi2" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>
         	<columnOverride column="sfz1" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>
         	<columnOverride column="sfz2" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>
-        </table>
+        </table> -->
+        <table tableName="t_user"></table>
         <!-- <table tableName="app_bind_status" domainObjectName="AppBindStatus"   
             enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"   
             enableSelectByExample="false" selectByExampleQueryId="false"></table> -->  

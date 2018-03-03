@@ -33,6 +33,6 @@ public interface TFenrunMxMapper {
     int updateByPrimaryKey(TFenrunMx record);
     PersonFenRunMxOutput getuserTodayFenrunSum(PersonFenRunMxInput input);
     PersonFenRunMxOutput getuserYesterdayFenrunSum(PersonFenRunMxInput input);
-    UserInfo getTodayFenrunTopList ();
-    UserInfo getTomonthFenrunTopList ();
+    List<UserInfo> getTodayFenrunTopList ();
+    List<UserInfo> getTomonthFenrunTopList ();
 }

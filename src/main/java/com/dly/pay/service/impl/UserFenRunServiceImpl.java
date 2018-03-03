@@ -53,7 +53,7 @@ public class UserFenRunServiceImpl implements FenRunService{
 	public void fenRun(String userId,String project,Double sum,String orderId) throws Exception {
 		
 		TUser user= tUserMapper.selectByPrimaryKey(userId);
-		if(user.getReferee()==null) {//如果是推荐人是null,结束方法
+		if(user==null||user.getReferee()==null) {//如果是推荐人是null,结束方法
 			return ;
 		}
 		TUser referee= tUserMapper.selectByPrimaryKey(user.getReferee());//获取推荐人
@@ -107,8 +107,8 @@ public class UserFenRunServiceImpl implements FenRunService{
 	}
 	@Override
 	public Result getFenRunTopList(UserInfo input) {
-		UserInfo todayFenrunTopList = tFenrunMxMapper.getTodayFenrunTopList();
-		UserInfo tomonthFenrunTopList = tFenrunMxMapper.getTomonthFenrunTopList();
+		List<UserInfo> todayFenrunTopList = tFenrunMxMapper.getTodayFenrunTopList();
+		List<UserInfo> tomonthFenrunTopList = tFenrunMxMapper.getTomonthFenrunTopList();
 		JSONObject result=new JSONObject();
 		result.put("today", todayFenrunTopList);
 		result.put("tomonth", tomonthFenrunTopList);
@@ -119,8 +119,8 @@ public class UserFenRunServiceImpl implements FenRunService{
 		System.out.println(input);
 		JSONObject result=new JSONObject();
 		try {
-			Long today = redisCacheUtil.zrank(RedisKey.PERSON_TODAY_RANKING.getKey()+CalendarUtil.getNowTime(CalendarUtil.yyyy_MM_ddFormat), input.getUserId());//获取
-			Long tomonth= redisCacheUtil.zrank(RedisKey.PERSON_TOMONTH_RANKING.getKey()+CalendarUtil.getNowTime(CalendarUtil.yyyy_MMFormat), input.getUserId());//获取
+			Long today = redisCacheUtil.zrevrank(RedisKey.PERSON_TODAY_RANKING.getKey()+CalendarUtil.getNowTime(CalendarUtil.yyyy_MM_ddFormat), input.getUserId());//获取
+			Long tomonth= redisCacheUtil.zrevrank(RedisKey.PERSON_TOMONTH_RANKING.getKey()+CalendarUtil.getNowTime(CalendarUtil.yyyy_MMFormat), input.getUserId());//获取
 			result.put("today", today);
 			result.put("tomonth", tomonth);
 			return new Result(true,"",result);

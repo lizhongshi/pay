@@ -1,9 +1,12 @@
 package com.dly.pay.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.dly.pay.entity.TUser;
 import com.dly.pay.entity.TUserExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.dly.pay.vo.UserInfo;
 
 public interface TUserMapper {
     long countByExample(TUserExample example);
@@ -33,4 +36,5 @@ public interface TUserMapper {
     int updateByPrimaryKeyWithBLOBs(TUser record);
 
     int updateByPrimaryKey(TUser record);
+   UserInfo getUserInfo( UserInfo input);
 }

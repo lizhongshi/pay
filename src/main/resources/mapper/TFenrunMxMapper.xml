@@ -10,12 +10,12 @@
 
 <select id="getTodayFenrunTopList"  resultType="com.dly.pay.vo.UserInfo">
 	SELECT a.fsje frzj,b.icon_url,b.`level` ,b.`phone` 
-	FROM (SELECT  * FROM t_fenrun_mx WHERE (TIME BETWEEN  DATE_FORMAT(NOW(),'%Y-%m-%d 00:00:00') AND NOW() ) GROUP BY user_id ORDER BY fsje DESC LIMIT 0,10)  a JOIN t_user b ON a.user_id=b.user_id 
+	FROM (SELECT  SUM(fsje) fsje,user_id FROM t_fenrun_mx WHERE (TIME BETWEEN  DATE_FORMAT(NOW(),'%Y-%m-%d 00:00:00') AND NOW() ) GROUP BY user_id ORDER BY fsje DESC LIMIT 0,10)  a JOIN t_user b ON a.user_id=b.user_id 
 </select>
 
 <select id="getTomonthFenrunTopList"  resultType="com.dly.pay.vo.UserInfo">
 	SELECT a.fsje frzj,b.icon_url,b.`level` ,b.`phone` 
-	FROM (SELECT  * FROM t_fenrun_mx WHERE (TIME BETWEEN  DATE_FORMAT(NOW(),'%Y-%m-01 00:00:00') AND NOW() ) GROUP BY user_id ORDER BY fsje DESC LIMIT 0,10)  a JOIN t_user b ON a.user_id=b.user_id 
+	FROM (SELECT  SUM(fsje) fsje,user_id FROM t_fenrun_mx WHERE (TIME BETWEEN  DATE_FORMAT(NOW(),'%Y-%m-01 00:00:00') AND NOW() ) GROUP BY user_id ORDER BY fsje DESC LIMIT 0,10)  a JOIN t_user b ON a.user_id=b.user_id 
 </select>
 
 

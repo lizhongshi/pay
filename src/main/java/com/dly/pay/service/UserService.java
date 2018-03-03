@@ -9,6 +9,7 @@ import com.dly.pay.entity.TUser;
 import com.dly.pay.vo.ChangeUserInfoInput;
 import com.dly.pay.vo.LoginInput;
 import com.dly.pay.vo.RegisterInput;
+import com.dly.pay.vo.UserInfo;
 import com.dly.pay.vo.UserInfoInput;
 
 
@@ -59,7 +60,7 @@ public interface UserService  {
 	/*
 	 * 获取用户信息
 	 */
-	public Result getUserInfo(UserInfoInput user);
+	public Result getUserInfo(UserInfo user);
 	/**
 	 * 获取用户下级
 	 * @return

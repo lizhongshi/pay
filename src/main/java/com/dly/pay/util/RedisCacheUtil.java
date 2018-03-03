@@ -253,6 +253,54 @@ public class RedisCacheUtil {
         } 
     }
     
+    /**
+     * 获取指定key的
+     * @param key
+     * @param member
+     * @param start
+     * @param end
+     * @return
+     */
+    public Set<String> zrevrange(String key,int start,int end) {
+    	Jedis jedis = null;
+        try {
+        	 jedis=redisDataSource.getJedis();
+        	 Set<String> zrank = jedis.zrevrange(key, start,end);
+        	System.out.println(zrank);
+    		return zrank;
+    	}catch(Exception e) {
+    		 logger.error(e.getMessage());
+    		 e.printStackTrace();
+    		 throw e;
+    	}finally{
+        	jedis.close();
+        } 
+    	
+    }
+    
+    /**
+     * 
+     * @param key
+     * @param member
+     * @return
+     */
+    public  Long zrevrank(String key,String member) {
+    	Jedis jedis = null;
+        try {
+        	System.out.println("key:"+key);
+        	System.out.println("member:"+member);
+        	 jedis=redisDataSource.getJedis();
+        	 Long zrank = jedis.zrevrank(key, member); 
+        	System.out.println(zrank);
+    		return zrank;
+    	}catch(Exception e) {
+    		 logger.error(e.getMessage());
+    		 e.printStackTrace();
+    		 throw e;
+    	}finally{
+        	jedis.close();
+        } 
+    }
     
     
     

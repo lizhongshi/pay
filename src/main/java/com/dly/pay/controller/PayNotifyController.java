@@ -33,6 +33,13 @@ public class PayNotifyController  {
 		}
 		
 	}
+	
+	@PostMapping(value="payInfo.do",produces = "application/json;charset=UTF-8")
+	//@ResponseBody
+	public String  payInfo(@RequestBody JSONObject json) {
+		System.out.println("支付异步:"+json);
+		return "success";
+	}
 
 	
 

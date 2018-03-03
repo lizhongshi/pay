@@ -30,6 +30,7 @@ import com.dly.pay.util.Util;
 import com.dly.pay.vo.ChangeUserInfoInput;
 import com.dly.pay.vo.LoginInput;
 import com.dly.pay.vo.RegisterInput;
+import com.dly.pay.vo.UserInfo;
 import com.dly.pay.vo.UserInfoInput;
 
 @Service("userService")
@@ -108,7 +109,10 @@ public class UserServiceImpl  implements UserService {
 				inUser.setProject(user.getProject());//项目id
 				inUser.setUserId(userIDGenerrated.increase());
 				inUser.setReferee(referee.getUserId());//推荐人
-				inUser.setLevel(5);
+				inUser.setLevel(1);
+				inUser.setZhye(0.00);
+				inUser.setFyzj(0.00);
+				inUser.setRole("普通用户");
 				if(tUserMapper.insert(inUser)>0) {
 					if(result2.size()+1>kafen) {
 						referee.setLevel(2);
@@ -206,9 +210,9 @@ public class UserServiceImpl  implements UserService {
 	}
 
 	@Override
-	public Result getUserInfo(UserInfoInput user) {
-		
-		return new Result(true,"");
+	public Result getUserInfo(UserInfo input) {
+		UserInfo userInfo = tUserMapper.getUserInfo(input);
+		return new Result(true,"",userInfo);
 	}
 
 	@Override

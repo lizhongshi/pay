@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dly.pay.dao.TUserMapper">
+<select id="getUserInfo" parameterType="com.dly.pay.vo.UserInfo" resultType="com.dly.pay.vo.UserInfo">
+	SELECT icon_url,LEVEL  FROM t_user WHERE user_id=${userId}
+</select>
   <resultMap id="BaseResultMap" type="com.dly.pay.entity.TUser">
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />

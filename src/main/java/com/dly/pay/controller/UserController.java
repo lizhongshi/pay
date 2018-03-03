@@ -17,6 +17,7 @@ import com.dly.pay.service.UserService;
 import com.dly.pay.vo.ChangeUserInfoInput;
 import com.dly.pay.vo.LoginInput;
 import com.dly.pay.vo.RegisterInput;
+import com.dly.pay.vo.UserInfo;
 import com.dly.pay.vo.UserInfoInput;
 
 
@@ -68,7 +69,7 @@ public class UserController {
 	}
 	
 	@GetMapping(value="",produces = "application/json;charset=UTF-8")
-	public Object  getUserInfo( UserInfoInput input){
+	public Object  getUserInfo( UserInfo input){
 		return userService.getUserInfo(input);
 	}
 	/**
@@ -77,7 +78,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping(value="userSubordinate",produces = "application/json;charset=UTF-8")
-	public Result getUserSubordinate(@RequestBody UserInfoInput input) {
+	public Result getUserSubordinate( UserInfoInput input) {
 		return userService.getUserSubordinate(input,new JSONArray() );
 	}
 	/**
@@ -98,10 +99,16 @@ public class UserController {
 	public Object  resetPassword(@RequestBody ChangeUserInfoInput input){
 		return userService.resetPassword(input);
 	}
+	/**
+	 * 上传用户头像-base64
+	 * @param input
+	 * @return
+	 */
 	@PostMapping(value="uploadUserIcon",produces = "application/json;charset=UTF-8")
 	public Object  uploadUserIcon(@RequestBody TUser input){
 		return userService.uploadUserIcon(input);
 	}
+	
 	
 	
 

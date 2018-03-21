@@ -7,7 +7,7 @@ public class OpenQuickpay {
 	private String cardNo;
 	private String shbh;
 	private Double dbsxf;
-	private Boolean isjf;
+	private Boolean isjf; 
 	private Double rate;
 	private String address;
 		

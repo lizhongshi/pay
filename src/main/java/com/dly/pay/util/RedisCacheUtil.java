@@ -254,7 +254,7 @@ public class RedisCacheUtil {
     }
     
     /**
-     * 获取指定key的
+     * 获取指定集合中索引直接的集合
      * @param key
      * @param member
      * @param start
@@ -279,7 +279,7 @@ public class RedisCacheUtil {
     }
     
     /**
-     * 
+     * 返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序
      * @param key
      * @param member
      * @return

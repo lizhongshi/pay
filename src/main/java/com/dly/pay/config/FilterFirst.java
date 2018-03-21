@@ -62,14 +62,15 @@ public class FilterFirst implements Filter {
 		Claims claims= JwtUtils.parseJWT(jwt, JwtUtils.PRIVATE_KEY);
 		JSONObject user=JSONObject.parseObject(claims.getSubject());//获取用户信息
 		BufferedReader br=beforeReq.getReader();
-		String str, wholeStr = "";
+		String str= "";
+		StringBuffer wholeStr=new StringBuffer();
 		while((str = br.readLine()) != null){
-		wholeStr += str;
+		wholeStr.append( str);
 		}
 		System.out.println("源数据"+wholeStr);
 		JSONObject parameter=null;
 		try {
-			parameter=JSONObject.parseObject(wholeStr);	
+			parameter=JSONObject.parseObject(wholeStr.toString());	
 			parameter.put("project", user.get("project"));
 			parameter.put("userId", user.get("userId"));
 			

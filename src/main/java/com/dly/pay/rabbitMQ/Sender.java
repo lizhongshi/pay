@@ -28,6 +28,15 @@ public class Sender implements RabbitTemplate.ConfirmCallback, ReturnCallback {
         rabbitTemplate.setReturnCallback(this);
     }
 
+    /**
+     * 如果消息没有到exchange,则confirm回调,ack=false
+
+如果消息到达exchange,则confirm回调,ack=true
+
+exchange到queue成功,则不回调return
+
+exchange到queue失败,则回调return(需设置mandatory=true,否则不回回调,消息就丢了)
+     */
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         if (ack) {  
@@ -53,6 +62,8 @@ public class Sender implements RabbitTemplate.ConfirmCallback, ReturnCallback {
         String response = rabbitTemplate.convertSendAndReceive("fanoutExchange", "f", msg, correlationId).toString();
         System.out.println("结束发送消息 : " + msg.toLowerCase());
         System.out.println("消费者响应 : " + response + " 消息处理完成");
+        
+        
     }
 }
 

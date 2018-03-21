@@ -16,16 +16,16 @@ import com.dly.pay.config.RabbitMQConfig;
 @Component
 public class Receiver {
     
-    @RabbitListener(queues = "fanOut")
-    public String processMessage1(String msg) {
-        System.out.println(Thread.currentThread().getName() + " 接收到来自hello.queue1队列的消息：" + msg);
-        return msg.toUpperCase();
-    }
+//    @RabbitListener(queues = "fanOut")
+//    public String processMessage1(String msg) {
+//        System.out.println(Thread.currentThread().getName() + " 接收到来自hello.queue1队列的消息：" + msg);
+//        return msg.toUpperCase();
+//    }
     
-    @RabbitListener(queues = "fanOut")
-    public void processMessage2(String msg) {
-        System.out.println(Thread.currentThread().getName() + " 接收到来自hello.queue2队列的消息：" + msg);
-    }
+//    @RabbitListener(queues = "fanOut")
+//    public void processMessage2(String msg) {
+//        System.out.println(Thread.currentThread().getName() + " 接收到来自hello.queue2队列的消息：" + msg);
+//    }
 }
 
 
